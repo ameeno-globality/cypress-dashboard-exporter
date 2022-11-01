@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cypress-prometheus-exporter
+  name: cypress-prometheus-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cypress-prometheus-exporter
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: cypress-prometheus-exporter
+    spec:
+      containers:
+        - args:
+            - -project
+            - ___PROJECT_ID___
+            - -debug
+            - -email
+            - ___EMAIL___
+            - -password
+            - ___PASSWORD___
+          image: cypress-prometheus-exporter
+          name: cypress-prometheus-exporter
+          annotations:
+            prometheus.io/scrape: 'true'
+            prometheus.io/path: '/metrics'
+            prometheus.io/port: '8081'
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          ports:
+            - containerPort: 8081
+      restartPolicy: Always

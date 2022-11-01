@@ -11,6 +11,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rguilmont/cypress-dashboard-exporter/pkg/cypresscollector"
 	"github.com/sirupsen/logrus"
+	// verifier "github.com/okta/okta-jwt-verifier-golang"
+	// oktaUtils "github.com/okta/samples-golang/resource-server/utils"
 )
 
 const readinessTime = 360
@@ -39,7 +41,7 @@ func toSeconds(days int64) int64 {
 
 func main() {
 	listen := flag.String("listen", "0.0.0.0:8081", "host:port to listen")
-	project := flag.String("project", "7s5okt", "host:port to listen")
+	project := flag.String("project", "61njar", "Cypress Dashboard project")
 	keepUntil := flag.Int64("keepUntil", 14,
 		"Time ( in days ) to keep in memory the results of a test/run before removing it.")
 

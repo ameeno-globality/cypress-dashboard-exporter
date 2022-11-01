@@ -1,0 +1,6 @@
+{
+  "type": "go-service",
+  "params": {
+    "name": "cypress-prometheus-exporter"
+  }
+}

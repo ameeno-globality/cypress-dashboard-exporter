@@ -1,0 +1,64 @@
+---
+# push pipeline
+kind: pipeline
+type: kubernetes
+name: push
+
+trigger:
+  event:
+    - push
+
+steps:
+  - name: build-and-publish-image
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: AWS_ACCESS_KEY_ID
+      secret_key:
+        from_secret: AWS_SECRET_ACCESS_KEY
+      repo: ${DRONE_REPO_NAME}
+      tags:
+        - latest
+        - ${DRONE_BRANCH}
+        - ${DRONE_COMMIT_SHA}
+      registry: 308798440167.dkr.ecr.us-east-1.amazonaws.com
+      region: us-east-1
+
+# --- TODO: add PR pipeline
+# # PR pipeline
+# kind: pipeline
+# type: kubernetes
+# name: pr
+
+# trigger:
+#   event:
+#     - pull_request
+
+# steps:
+#   - name: check_build_and_lint
+#     image: python:3.9-bullseye
+#     pull: always
+#     environment:
+#       PIP_EXTRA_INDEX_URL:
+#         from_secret: EXTRA_INDEX_URL
+#     commands:
+#       - ./pants --version
+#       - ./pants tailor --check update-build-files --check
+#       - ./pants --changed-since=origin/master lint
+#       - ./pants --changed-since=origin/master --changed-dependees=transitive test
+#       - ./pants --changed-since=origin/master --changed-dependees=transitive check
+#       - ./pants run code_tools/proto_sync:main -- check cfgr_protos
+
+---
+kind: secret
+name: AWS_ACCESS_KEY_ID
+get:
+  path: secrets/dev/drone
+  name: DRONE_AWS_ACCESS_KEY
+
+---
+kind: secret
+name: AWS_SECRET_ACCESS_KEY
+get:
+  path: secrets/dev/drone
+  name: DRONE_AWS_ACCESS_SECRET_KEY

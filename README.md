@@ -1,15 +1,21 @@
+# cypress-prometheus-exporter
+Cypress Prometheus Exporter
+
+forked from ssh://git@github.com:/rguilmont/cypress-dashboard-exporter.git and modified to work with our stack.
+# Original Readme:
+
 # Cypress.io dashboard Prometheus exporter
 
 See an example of what is possible [here](https://rguilmont.net/grafana-example/d/scjkVna7k/cypress-dashboard)
 
-Prometheus exporter for a project from Cypress.io dashboards, giving the ability to alert, make special operations or correlate with other datasources by using grafana.
+Prometheus exporter for a project from Cypress.io dashboards, giving the ability to alert, make special operations or correlate with other data sources by using grafana.
 
 # Installation
 
 There's no public docker image available yet, but you can simply build it :
 
 ```
-docker build -t cypress-exporter .
+docker build -t cypress-prometheus-exporter .
 ```
 
 or the binary :
@@ -88,7 +94,7 @@ For `test` related metrics :
 - run_group
 - spec_file
 
-For `cypress_test_state_last` and there's one label `state` with each possible value `CANCELED` `FAILED` `PASSED` `SKIPPED` or `OTHER`. Value of the metric will be 1.0 ( or incremented in case of the sum one ) when it's the corresponding state, and 0 ( or not incremented ) if not.
+For `cypress_test_state_last` and there's one label `state` with each possible value `CANCELED` `FAILED` `PASSED` `SKIPPED` or `OTHER`. The value of the metric will be 1.0 ( or incremented in the case of the sum one ) when it's the corresponding state, and 0 ( or not incremented ) if not.
 
 # Grafana dashboard
 
