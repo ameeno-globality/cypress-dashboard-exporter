@@ -26,4 +26,4 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ["cypress-exporter:8081", "cypress-exporter2:8081"]
+      - targets: ["cypress-prometheus-exporter:8081"]

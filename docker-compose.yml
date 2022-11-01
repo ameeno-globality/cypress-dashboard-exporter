@@ -2,15 +2,11 @@
 
 version: "3.3"
 services:
-  cypress-exporter:
+  cypress-prometheus-exporter:
     build: .
     ports:
       - "18081:8081"
-  cypress-exporter2:
-    build: .
-    ports:
-      - "18082:8081"
-    command: ["-project", "4q7jz8"]
+    command: ["-project", "61njar", "-debug", "-email", "username" , "-password", "password"]
   prometheus:
     image: "bitnami/prometheus:latest"
     volumes:
@@ -20,9 +16,9 @@ services:
     ports:
       - 13000:3000
     environment:
-      - GF_SERVER_ROOT_URL=https://rguilmont.net/grafana-example/
+      - GF_SERVER_ROOT_URL=https://grafana.obs.dev.globality.io/
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-      - GF_SERVER_DOMAIN=rguilmont.net
+      - GF_SERVER_DOMAIN=grafana.obs.dev.globality.io
     volumes:
       - './example_dockercompose/grafana/:/var/lib/grafana/'
 networks:
